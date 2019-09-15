@@ -1,8 +1,13 @@
 import React from "react";
-import Toolbar from "./components/navigation/Toolbar";
+import Layout from "./components/Layout";
+import Blog from "./containers/Blog";
 
 function App() {
-  return <Toolbar />
+  return (
+    <Layout title="Blog">
+      <Blog />
+    </Layout>
+  );
 }
 
 export default App;

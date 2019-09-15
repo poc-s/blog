@@ -1,0 +1,23 @@
+.pagination {
+  margin: 12px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: padding 0.2s;
+}
+.pagination:hover {
+  padding: 5px 10px 5px 10px;
+  transition: padding 0.2s;
+}
+.active {
+  border: 2px solid red;
+  color: red;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+.active:hover {
+  padding: 10px 15px 10px 15px;
+}
+#animation {
+  transition-timing-function: ease-in-out;
+}
