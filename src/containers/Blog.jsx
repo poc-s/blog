@@ -4,6 +4,8 @@ import Pagination from "../components/Pagination";
 //import gif from "../assets/source.gif";
 
 const Blog = () => {
+  const [nextId, disableNext] = useState(false);
+  const [previousId, disablePrevious] = useState(false);
   const [postsPerPage, setPostPerPage] = useState(10);
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -15,6 +17,7 @@ const Blog = () => {
     const perPage = localStorage.getItem("perPage");
     if (pageId) setCurrentPage(parseInt(pageId));
     if (perPage) setPostPerPage(parseInt(perPage));
+
     return () => {
       localStorage.removeItem("pageId");
       localStorage.removeItem("perPage");
@@ -34,6 +37,16 @@ const Blog = () => {
       for (let i = 1; i <= totalPages; i++) {
         pagination.push(i);
         setPages(pagination);
+        if (pagination[0] === currentPage) {
+          disablePrevious(true);
+        } else {
+          disablePrevious(false);
+        }
+        if (pagination.length === currentPage) {
+          disableNext(true);
+        } else {
+          disableNext(false);
+        }
       }
     }
   }, [totalPages]);
@@ -51,6 +64,16 @@ const Blog = () => {
   const handleClick = data => {
     localStorage.setItem("pageId", data);
     setCurrentPage(parseInt(data));
+    if (pages[0] === data) {
+      disablePrevious(true);
+    } else {
+      disablePrevious(false);
+    }
+    if (pages.length === data) {
+      disableNext(true);
+    } else {
+      disableNext(false);
+    }
   };
   const setPageNumber = ({ target }) => {
     localStorage.setItem("perPage", target.value);
@@ -76,6 +99,9 @@ const Blog = () => {
           setPageNumber={setPageNumber}
           selectedPostsPerPage={postsPerPage}
           activePage={currentPage}
+          posts={posts}
+          previousId={previousId}
+          nextId={nextId}
         ></Pagination>
       </div>
     </div>

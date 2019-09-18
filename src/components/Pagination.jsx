@@ -33,8 +33,11 @@ const Pagination = props => {
   };
   return (
     <Fragment>
-      <button onClick={handlePreviousClick} disabled={previous}>
-        Previous
+      <button
+        onClick={handlePreviousClick}
+        disabled={previous || props.previousId}
+      >
+        PrEviOuS
       </button>
       {props.pagesData.map(p => (
         <div
@@ -50,9 +53,14 @@ const Pagination = props => {
           {p}
         </div>
       ))}
-      <button onClick={handleNextClick} disabled={next}>
-        Next
+      <button onClick={handleNextClick} disabled={next || props.nextId}>
+        {" "}
+        NeXt
       </button>
+      <span style={{ padding: "24px 0 0 105px" }}>
+        <span style={{ color: "#1168b5" }}>Total Results : </span>
+        {props.posts.length}
+      </span>
       <span style={{ margin: "auto 0 auto auto" }}>
         <label>Per Page :</label>
         <select
