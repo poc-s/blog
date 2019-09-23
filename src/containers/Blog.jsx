@@ -24,11 +24,16 @@ const Blog = () => {
     };
   }, []);
   useEffect(() => {
+    var url = 'https://newsapi.org/v2/everything?sources=techcrunch&apiKey=7065079046804e7e8d69745630fe7bd6';
+
+var req = new Request(url);
+
     console.log("useEffect is called");
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then(res => res.json())
+    fetch(req)
+      .then(res =>res.json())
       .then(data => {
-        setPosts(data);
+        console.log(data.articles)
+        setPosts(data.articles);
       });
   }, []); // [] means it called only once
   useEffect(() => {
@@ -82,13 +87,19 @@ const Blog = () => {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", flex: 1 }}>
       {currentPosts.map(post => (
-        <Card style={{ flex: "1 46%", boxSizing: "border-box" }} key={post.id}>
+        <Card style={{ flex: "1 46%", boxSizing: "border-box" }} key={post.title}>
+        <img
+            src={'../assets/images/techcrunch.png'}
+            alt={post.title}
+          />
+          <div style={{fontSize:'14px', fontWeight:'bold'}}>{post.title}</div>
+          <div style={{fontSize:'12px', padding:'20px 0 20px 0'}}>{post.source.name}</div>
           <img
-            src={"https://getuikit.com/v2/docs/images/placeholder_600x400.svg"}
+            src={post.urlToImage}
             alt={post.title}
             style={{ width: "100%", height: "300px" }}
           />
-          <b>{post.title}</b>
+          <p style={{fontSize:'14px'}}>{post.content}</p >
           <p>{post.body}</p>
         </Card>
       ))}
